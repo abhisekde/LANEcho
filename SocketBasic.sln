@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer", "SocketServer\SocketServer.csproj", "{70D50088-C1F3-409F-82E0-A6835ADB4C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerDemo", "ServerDemo\ServerDemo.csproj", "{FB8A93EB-5DA2-452A-8A32-E12DD96CEB24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientDemo", "ClientDemo\ClientDemo.csproj", "{85315F0C-D795-4AA0-A0DF-07E547AAA8CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketClient", "SocketClient\SocketClient.csproj", "{9F453646-0966-42F4-BB28-73038E8493AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70D50088-C1F3-409F-82E0-A6835ADB4C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D50088-C1F3-409F-82E0-A6835ADB4C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D50088-C1F3-409F-82E0-A6835ADB4C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D50088-C1F3-409F-82E0-A6835ADB4C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8A93EB-5DA2-452A-8A32-E12DD96CEB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8A93EB-5DA2-452A-8A32-E12DD96CEB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8A93EB-5DA2-452A-8A32-E12DD96CEB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8A93EB-5DA2-452A-8A32-E12DD96CEB24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85315F0C-D795-4AA0-A0DF-07E547AAA8CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85315F0C-D795-4AA0-A0DF-07E547AAA8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85315F0C-D795-4AA0-A0DF-07E547AAA8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85315F0C-D795-4AA0-A0DF-07E547AAA8CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F453646-0966-42F4-BB28-73038E8493AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F453646-0966-42F4-BB28-73038E8493AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F453646-0966-42F4-BB28-73038E8493AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F453646-0966-42F4-BB28-73038E8493AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

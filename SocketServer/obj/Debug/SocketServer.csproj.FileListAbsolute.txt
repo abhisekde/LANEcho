@@ -1,0 +1,5 @@
+c:\users\bublu\documents\visual studio 2012\Projects\SocketBasic\SocketServer\bin\Debug\SocketServer.dll
+c:\users\bublu\documents\visual studio 2012\Projects\SocketBasic\SocketServer\bin\Debug\SocketServer.pdb
+c:\users\bublu\documents\visual studio 2012\Projects\SocketBasic\SocketServer\obj\Debug\SocketServer.csprojResolveAssemblyReference.cache
+c:\users\bublu\documents\visual studio 2012\Projects\SocketBasic\SocketServer\obj\Debug\SocketServer.dll
+c:\users\bublu\documents\visual studio 2012\Projects\SocketBasic\SocketServer\obj\Debug\SocketServer.pdb

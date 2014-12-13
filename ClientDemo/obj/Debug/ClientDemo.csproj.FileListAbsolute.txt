@@ -1,0 +1,8 @@
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\bin\Debug\ClientDemo.exe.config
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\bin\Debug\ClientDemo.exe
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\bin\Debug\ClientDemo.pdb
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\obj\Debug\ClientDemo.csprojResolveAssemblyReference.cache
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\obj\Debug\ClientDemo.exe
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\obj\Debug\ClientDemo.pdb
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\bin\Debug\SocketClient.dll
+C:\Users\Bublu\Documents\Visual Studio 2012\Projects\SocketBasic\ClientDemo\bin\Debug\SocketClient.pdb
