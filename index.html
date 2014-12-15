@@ -1,36 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="LAN Echo : Basic LAN system coded in C#. ">
+    <title>LAN Echo by abhisekde</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>LAN Echo</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>LAN Echo</h1>
+        <p>Basic LAN system coded in C#. </p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/debai/LANEcho">View on GitHub</a>
+        <p class="view"><a href="https://github.com/abhisekde/LANEcho">View the Project on GitHub <small>abhisekde/LANEcho</small></a></p>
 
-          <h1 id="project_title">LAN Echo</h1>
-          <h2 id="project_tagline">Basic LAN system coded in C#. </h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/debai/LANEcho/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/debai/LANEcho/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+        <ul>
+          <li><a href="https://github.com/abhisekde/LANEcho/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/abhisekde/LANEcho/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/abhisekde/LANEcho">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h3>
 <a id="welcome-lan-echo-project" class="anchor" href="#welcome-lan-echo-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome LAN Echo Project</h3>
 
@@ -46,29 +43,139 @@ $ git checkout gh-pages
 <h3>
 <a id="the-idea" class="anchor" href="#the-idea" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Idea</h3>
 
-<p>The idea behind this project is to start a series of advanced C# programming. this being the first one. Visit my GitHub to see all my projects here (<a href="https://github.com/debai" class="user-mention">@debai</a>).</p>
+<p>Socket programming can be done in almost any programming language, I’ve chosen C#. Here we’ll be creating a echo server.</p>
+
+<p>This project consists of 2 main parts:<br>
+1. Server<br>
+2. Client</p>
+
+<p>Our server is a TCP Server. It is basically as instance of <strong>TcpListener</strong> class from from <strong>System.Net.Sockets</strong> namespace. We initialize the server with two arguments: an IP and a port. IP is of type <strong>IPAddress </strong>from <strong>System.Net</strong> namespace and port is of integer type. As shown below:</p>
+
+<pre>public class Server
+{
+    private TcpListener _tcpListener;
+    private IPAddress _IP;
+    private int _port = 5050;
+
+    public Server()
+    {
+       _tcpListener = new TcpListener(IPAddress.Loopback, _port);
+    }
+
+    public Server(string IP, int port)
+    {
+        if (!IPAddress.TryParse(IP, out _IP)) 
+           _IP = IPAddress.Loopback; // 127.0.0.1
+        _port = port;
+        _tcpListener = new TcpListener(_IP, _port);
+    }
+}</pre>
+
+<p>The server basically has 4 function to do:</p>
+
+<ol>
+<li>Accept an incoming connection (i.e. incoming socket).</li>
+<li>Receive data from the socket as byte array</li>
+<li>Process the data (in this case print it)</li>
+<li>Send response (in this case, echo the same data back)</li>
+</ol>
+
+<p>We start the server by calling the <strong>Start</strong> method on the server then the server listens (or waits) for an incoming client for ever, we achieve it by using an infinite loop. Inside the loop we create an instance of <strong>TcpClient</strong> from <strong>System.Net.Sockets</strong> namespace. This object will hold our incoming client. The server accepts the incoming client by calling <strong>AcceptTcpClient</strong> function on the <strong>TcpListener</strong> instance as follows:</p>
+
+<pre>private void Service()
+{
+    _tcpListener.Start();
+    while (true)
+    {
+       TcpClient client = _tcpListener.AcceptTcpClient();
+       Thread clientThread = 
+       new Thread(new ParameterizedThreadStart(ClientHandler));
+       clientThread.Start(client);
+    }
+ }</pre>
+
+<p>We’ve used multi-threading because we don’t want to block the main thread with the first client, because if we do so, then our server can’t service to other clients, and they will be force to wait in a queue.</p>
+
+<p><strong>ClientHandler</strong> method handles each incoming client in a new thread. Here we get the network stream from the client and read the payload data from it using the <strong>Read</strong> method and load it in a buffer. The data from the buffer is then ASCII encoded to text and printed out to the screen.</p>
+
+<pre>NetworkStream clientStream = tcpClient.GetStream();
+byte[] msg = new byte[SIZE];
+byteCount = clientStream.Read(msg, 0, SIZE);
+ASCIIEncoding encoder = new ASCIIEncoding();
+string text = encoder.GetString(msg, 0, byteCount);
+WriteMessage(text);</pre>
+
+<p>Since we’re developing an echo server so we need to echo the same data back to the client. We do it by writing the same sequence of byte back to the client using the Write method on the client’s network stream</p>
+
+<pre>clientStream.Write(msg, 0, byteCount);
+clientStream.Flush();</pre>
+
+<p>That’s all! the server is all set up. Now it’s time to code the client. The client is almost similar to the server. the client is basically an instance of <strong>TcpClient</strong> which connects with the server through the <strong>Connect</strong> method. this method acceps the server information using a <strong>IPEndPont</strong> object containing the information of the server’s IP and port no. as shown:</p>
+
+<pre>public class Client
+{
+   private TcpClient tcpClient;
+   private IPAddress _IP;
+   private IPEndPoint _ServerEndpoint;
+   private int _port = 5050;
+
+   public Client()
+   {
+      tcpClient = new TcpClient();
+      _IP = IPAddress.Loopback;
+      _ServerEndpoint = new IPEndPoint(_IP, _port);
+   }
+
+   public Client(string IP, int port)
+   {
+      if (!IPAddress.TryParse(IP, out _IP)) 
+         _IP = IPAddress.Loopback;
+      _port = port;
+      tcpClient = new TcpClient();
+      _ServerEndpoint = new IPEndPoint(_IP, _port);
+   }</pre>
+
+<p><br></p>
+
+<pre>tcpClient.Connect(_ServerEndpoint);</pre>
+
+<p>The client sends a sequence of byte to the server by writing to it’s network stream using the <strong>Write</strong> method as shown:</p>
+
+<pre>ASCIIEncoding encoder = new ASCIIEncoding();
+byte[] buffer = new byte[4096];
+NetworkStream clientStream = tcpClient.GetStream();
+var text = Console.ReadLine();
+buffer = encoder.GetBytes(text);
+clientStream.Write(buffer, 0, buffer.Length);
+clientStream.Flush();</pre>
+
+<p>When sending data is complete it waits for the server to respond and collects the response in another byte array and finally prints it out to the console.</p>
+
+<pre>byte[] response = new byte[4096];
+ASCIIEncoding encoder = new ASCIIEncoding();
+int responseLength = 
+clientStream.Read(response, 0, response.Length);
+encoder.GetString(response, 0, responseLength);
+Console.WriteLine(text);</pre>
+
+<p>That’s it folks! Our Echo Server/Client project is complete and ready to run!</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>Abhisek De (<a href="https://github.com/debai" class="user-mention">@debai</a>)</p>
+<p>Abhisek De (<a href="https://github.com/abhisekde" class="user-mention">@abhisekde</a>)</p>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>Please e-mail at <a href="mailto:abhisek.de@live.com">abhisek.de@live.com</a></p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">LAN Echo maintained by <a href="https://github.com/debai">debai</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/abhisekde">abhisekde</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
-
   </body>
 </html>
